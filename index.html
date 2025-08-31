@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vacanza in Riviera Romagnola 🏖️</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script>
+    tailwind = {
+      theme: {
+        extend: {
+          colors: {
+            ocean: { 50:'#f0fdff', 100:'#ccfbf1', 200:'#99f6e4', 300:'#5eead4', 400:'#2dd4bf', 500:'#14b8a6', 600:'#0d9488', 700:'#0f766e', 800:'#115e59', 900:'#134e4a' },
+            sand: { 50:'#fffbeb', 100:'#fef3c7', 200:'#fde68a', 300:'#fcd34d', 400:'#fbbf24', 500:'#f59e0b', 600:'#d97706', 700:'#b45309', 800:'#92400e', 900:'#78350f' },
+            coral: { 50:'#fdf2f8', 100:'#fce7f3', 200:'#fbcfe8', 300:'#f9a8d4', 400:'#f472b6', 500:'#ec4899', 600:'#db2777', 700:'#be185d', 800:'#9d174d', 900:'#831843' },
+            sky: { 50:'#f0f9ff', 100:'#e0f2fe', 200:'#bae6fd', 300:'#7dd3fc', 400:'#38bdf8', 500:'#0ea5e9', 600:'#0284c7', 700:'#0369a1', 800:'#075985', 900:'#0c4a6e' },
+          },
+          animation: {
+            wave: 'wave 3s ease-in-out infinite',
+            float: 'float 6s ease-in-out infinite',
+            shimmer: 'shimmer 3s linear infinite',
+          },
+          keyframes: {
+            wave: { '0%, 100%': {transform: 'rotate(-3deg)'}, '50%': {transform: 'rotate(3deg)'} },
+            float: { '0%, 100%': {transform: 'translateY(0px)'}, '50%': {transform: 'translateY(-10px)'} },
+            shimmer: { '0%': {backgroundPosition: '-200% 0'}, '100%': {backgroundPosition: '200% 0'} }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Swiper -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      touch-action: manipulation;
+    }
+    [x-cloak] { display: none !important; }
+
+    /* Sfondo mare animato */
+    .ocean-bg {
+      background: linear-gradient(-45deg, #0ea5e9, #14b8a6, #06b6d4, #0891b2);
+      background-size: 400% 400%;
+      animation: shimmer 8s ease infinite;
+    }
+
+    /* Cards con blur più leggibile */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .glass-light {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Onde decorative */
+    .wave-decoration::before {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E") repeat-x;
+      animation: wave 5s linear infinite;
+    }
+
+    .btn-ocean {
+      background: linear-gradient(135deg, #0ea5e9, #14b8a6);
+      transition: all 0.3s ease;
+      min-height: 48px;
+      min-width: 48px;
+    }
+
+    .btn-ocean:hover, .btn-ocean:active {
+      background: linear-gradient(135deg, #0284c7, #0d9488);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+    }
+
+    .btn-coral {
+      background: linear-gradient(135deg, #f472b6, #ec4899);
+      transition: all 0.3s ease;
+      min-height: 48px;
+      min-width: 48px;
+    }
+
+    .btn-coral:hover, .btn-coral:active {
+      background: linear-gradient(135deg, #e879f9, #d946ef);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(244, 114, 182, 0.3);
+    }
+
+    /* Miglioramenti per la navigazione */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #0ea5e9;
+      background: rgba(255, 255, 255, 0.8);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .swiper-pagination-bullet {
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: #0ea5e9;
+    }
+
+    .event-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+      flex-shrink: 0;
+      color: #0ea5e9;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      /* Riduci animazioni per prestazioni su mobile */
+      .ocean-bg {
+        animation: shimmer 12s ease infinite;
+      }
+
+      /* Migliora touch targets */
+      .glass-card {
+        min-height: 60px;
+      }
+
+      /* Swiper mobile */
+      .swiper-button-next,
+      .swiper-button-prev {
+        width: 36px;
+        height: 36px;
+        display: none; /* Nascondi frecce su mobile */
+      }
+
+      .swiper-button-next:after,
+      .swiper-button-prev:after {
+        font-size: 16px;
+      }
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar per mobile */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+
+<body class="ocean-bg min-h-screen">
+  <div x-data="rivieraApp()" x-init="init()">
+
+    <!-- HEADER -->
+    <header class="relative wave-decoration overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+
+        <!-- Decorazioni fluttuanti - nascoste su mobile per prestazioni -->
+        <div class="hidden sm:block absolute top-10 right-10 text-4xl sm:text-6xl animate-wave opacity-20">🏖️</div>
+        <div class="hidden sm:block absolute top-32 left-10 text-3xl sm:text-4xl animate-float opacity-20">🌊</div>
+        <div class="hidden sm:block absolute bottom-20 right-32 text-4xl sm:text-5xl animate-bounce opacity-20">☀️</div>
+
+        <div class="text-center text-white relative z-10">
+          <div class="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 glass-card rounded-full mb-4 sm:mb-6 text-3xl sm:text-4xl animate-float">
+            🏖️
+          </div>
+          <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-3 sm:mb-4 drop-shadow-lg leading-tight">
+            Vacanza in Riviera
+          </h1>
+          <p class="text-lg sm:text-xl md:text-2xl text-white/90 font-semibold mb-2">
+            Romagna • 4-9 Settembre 2025
+          </p>
+          <p class="text-white/80 max-w-2xl mx-auto text-base sm:text-lg px-4">
+            Il tuo itinerario completo per 6 giorni di mare, cultura e divertimento
+          </p>
+
+          <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4">
+            <button @click="scrollToItinerary()" class="btn-ocean text-white font-bold py-4 px-6 sm:px-8 rounded-2xl shadow-lg text-base sm:text-lg">
+              <i data-lucide="map" class="w-5 h-5 inline mr-2"></i>
+              Scopri l'Itinerario
+            </button>
+            <button @click="showCosts()" class="glass-card text-white font-bold py-4 px-6 sm:px-8 rounded-2xl hover:bg-white/20 transition text-base sm:text-lg">
+              <i data-lucide="euro" class="w-5 h-5 inline mr-2"></i>
+              Budget & Costi
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ITINERARIO CARDS -->
+    <section id="itinerary" class="py-16 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-8 sm:mb-12">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 px-4">
+            Il Tuo Viaggio Giorno per Giorno
+          </h2>
+          <p class="text-white/80 text-base sm:text-lg px-4">
+            Tocca su ogni giorno per vedere tutti i dettagli
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <template x-for="(day, index) in itinerary" :key="day.id">
+            <article
+              class="glass-card rounded-3xl p-5 sm:p-6 cursor-pointer group hover:scale-105 active:scale-95 transition-all duration-300 hover:shadow-2xl touch-manipulation"
+              @click="showDay(index)"
+            >
+              <!-- Data e emoji -->
+              <div class="flex items-center justify-between mb-3 sm:mb-4">
+                <div class="glass-light rounded-full px-3 py-1 text-xs sm:text-sm font-semibold text-gray-700">
+                  <span x-text="day.date"></span>
+                </div>
+                <div class="text-2xl sm:text-3xl" x-text="day.emoji"></div>
+              </div>
+
+              <!-- Titoli -->
+              <h3 class="text-xl sm:text-2xl font-bold text-white mb-2 leading-tight" x-text="day.title"></h3>
+              <p class="text-white/90 font-semibold mb-3 text-sm sm:text-base" x-text="day.subtitle"></p>
+              <p class="text-white/80 text-sm mb-4 leading-relaxed" x-text="day.summary"></p>
+
+              <!-- Info rapide -->
+              <div class="flex items-center justify-between text-white/70 text-xs">
+                <span>
+                  <i data-lucide="clock" class="w-4 h-4 inline mr-1"></i>
+                  <span x-text="day.events.length"></span> attività
+                </span>
+                <span class="group-hover:text-white transition">
+                  Tocca per dettagli →
+                </span>
+              </div>
+            </article>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETTAGLI GIORNO (Slider) -->
+    <div x-show="showDetails" x-transition.opacity class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" x-cloak @keydown.window="handleKeydown($event)" @click.self="closeDetails()">
+      <div class="swiper relative max-w-4xl w-full h-full" x-ref="swiperContainer">
+        <div class="swiper-wrapper">
+          <template x-for="day in itinerary" :key="day.id">
+            <div class="swiper-slide">
+              <div class="w-full h-full glass-light rounded-2xl sm:rounded-3xl p-4 sm:p-6 overflow-hidden flex flex-col">
+                <!-- Header giornata con pulsante chiusura -->
+                <div class="flex items-center justify-between mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
+                  <div class="min-w-0 flex-1">
+                    <div class="text-xs sm:text-sm text-gray-600 font-semibold" x-text="day.date"></div>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 leading-tight" x-text="day.title"></h2>
+                    <p class="text-lg sm:text-xl text-gray-600 leading-snug" x-text="day.subtitle"></p>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="text-4xl sm:text-6xl ml-4 flex-shrink-0" x-text="day.emoji"></div>
+                    <button @click="closeDetails()" class="ml-4 text-gray-500 hover:text-gray-700">
+                      <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Descrizione -->
+                <p class="text-gray-700 mb-4 sm:mb-6 text-base sm:text-lg leading-relaxed" x-text="day.summary"></p>
+
+                <!-- Eventi -->
+                <div class="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pb-4">
+                  <template x-for="event in day.events" :key="event.time + event.title">
+                    <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-100">
+                      <div class="flex gap-3 sm:gap-4">
+                        <div class="flex-shrink-0">
+                          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-ocean-400 to-ocean-600 flex items-center justify-center text-white font-bold">
+                            <i :data-lucide="event.icon" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                          </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <div class="flex items-center mb-1">
+                            <i data-lucide="clock" class="event-icon"></i>
+                            <span class="text-xs sm:text-sm font-semibold text-ocean-600" x-text="event.time"></span>
+                          </div>
+                          <h4 class="text-base sm:text-lg font-bold text-gray-800 mb-2 leading-tight flex items-center">
+                            <i :data-lucide="event.icon" class="event-icon"></i>
+                            <span x-text="event.title"></span>
+                          </h4>
+                          <p class="text-gray-600 mb-3 text-sm sm:text-base leading-relaxed" x-html="event.description"></p>
+
+                          <template x-if="event.location">
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                              <div class="flex items-center gap-2">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-coral-500"></i>
+                                <span class="text-sm text-gray-700 leading-snug" x-text="event.location"></span>
+                              </div>
+                              <a :href="'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(event.location)"
+                                 target="_blank"
+                                 class="btn-coral text-white text-xs px-3 py-1 rounded-lg inline-block touch-manipulation">
+                                Apri Maps
+                              </a>
+                            </div>
+                          </template>
+
+                          <template x-if="event.cost">
+                            <div class="text-sm font-semibold text-sand-600 mb-1 flex items-center">
+                              <i data-lucide="euro" class="event-icon"></i>
+                              <span x-text="event.cost"></span>
+                            </div>
+                          </template>
+
+                          <template x-if="event.duration">
+                            <div class="text-sm text-gray-500 mb-1 flex items-center">
+                              <i data-lucide="hourglass" class="event-icon"></i>
+                              <span>Durata: <span x-text="event.duration"></span></span>
+                            </div>
+                          </template>
+
+                          <template x-if="event.notes">
+                            <div class="mt-2 text-sm text-gray-600 italic leading-relaxed flex items-start">
+                              <i data-lucide="info" class="event-icon"></i>
+                              <span x-text="event.notes"></span>
+                            </div>
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Pagination -->
+        <div class="swiper-pagination !bottom-2"></div>
+
+        <!-- Navigation buttons -->
+        <div class="swiper-button-next !hidden sm:!flex"></div>
+        <div class="swiper-button-prev !hidden sm:!flex"></div>
+      </div>
+    </div>
+
+    <!-- MODAL COSTI -->
+    <div x-show="showCostsModal" class="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" x-cloak @click="showCostsModal = false">
+      <div class="glass-light rounded-2xl sm:rounded-3xl p-6 sm:p-8 max-w-2xl w-full max-h-[85vh] overflow-y-auto" @click.stop>
+        <div class="flex items-center justify-between mb-4 sm:mb-6">
+          <h3 class="text-xl sm:text-2xl font-bold text-gray-800">💰 Budget Vacanza</h3>
+          <button @click="showCostsModal = false" class="text-gray-600 hover:text-gray-800 p-2 touch-manipulation">
+            <i data-lucide="x" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+          </button>
+        </div>
+
+        <div class="space-y-4 sm:space-y-6">
+          <!-- Attrazioni -->
+          <div>
+            <h4 class="text-base sm:text-lg font-bold text-ocean-700 mb-3">🎠 Biglietti Attrazioni</h4>
+            <div class="space-y-2 text-gray-700 text-sm sm:text-base">
+              <div class="flex justify-between">
+                <span>Trenino Verde (Venerdì)</span>
+                <span class="font-semibold">€15,00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Funivia San Marino (Sabato)</span>
+                <span class="font-semibold">€15,00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Prima Torre San Marino (Opzionale)</span>
+                <span class="font-semibold">€24,00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Italia in Miniatura (Lunedì)</span>
+                <span class="font-semibold">€75,00</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Parcheggio Italia in Miniatura</span>
+                <span class="font-semibold">€5,00</span>
+              </div>
+              <div class="border-t pt-2 font-bold flex justify-between text-ocean-700">
+                <span>Subtotale Attrazioni</span>
+                <span>€134,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pasti -->
+          <div>
+            <h4 class="text-base sm:text-lg font-bold text-coral-700 mb-3">🍽️ Pranzi</h4>
+            <div class="space-y-2 text-gray-700 text-sm sm:text-base">
+              <div class="flex justify-between">
+                <span>Pranzo Sabato (San Marino)</span>
+                <span class="font-semibold">€90-105</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Pranzo Domenica (Rimini)</span>
+                <span class="font-semibold">€75-90</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Pranzo Lunedì (Piadineria)</span>
+                <span class="font-semibold">€30-45</span>
+              </div>
+              <div class="border-t pt-2 font-bold flex justify-between text-coral-700">
+                <span>Subtotale Pasti</span>
+                <span>€195-240</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra -->
+          <div>
+            <h4 class="text-base sm:text-lg font-bold text-sand-700 mb-3">🎪 Extra & Divertimento</h4>
+            <div class="space-y-2 text-gray-700 text-sm sm:text-base">
+              <div class="flex justify-between">
+                <span>Luna Park, gelati, caffè</span>
+                <span class="font-semibold">€50-70</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Totale -->
+          <div class="bg-gradient-to-r from-ocean-50 to-coral-50 rounded-xl p-4">
+            <div class="text-xl sm:text-2xl font-bold text-center">
+              <span class="text-gray-800">TOTALE STIMATO</span>
+              <div class="text-2xl sm:text-3xl text-ocean-700 mt-2">€379 - €444</div>
+              <div class="text-xs sm:text-sm text-gray-600 mt-1">Per 3 adulti • Esclusi hotel e viaggio</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white/10 backdrop-blur-sm py-8 sm:py-12 mt-12 sm:mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="mb-6 sm:mb-8">
+          <h3 class="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">🌊 Piano B - Meteo Avverso</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+
+            <!-- Acquario di Cattolica -->
+            <div class="glass-card rounded-2xl p-4 sm:p-6">
+              <div class="text-3xl sm:text-4xl mb-2 sm:mb-3">🐠</div>
+              <h4 class="text-base sm:text-lg font-bold text-white mb-2">Acquario di Cattolica</h4>
+              <p class="text-white/80 text-sm mb-3 leading-relaxed">30-40 min di auto. Esperienza immersiva con pinguini, lontre e tunnel degli squali.</p>
+              <div class="text-sand-300 font-semibold text-white text-sm">€75 per 3 adulti</div>
+            </div>
+
+            <!-- Oltremare -->
+            <div class="glass-card rounded-2xl p-4 sm:p-6">
+              <div class="text-3xl sm:text-4xl mb-2 sm:mb-3">🐬</div>
+              <h4 class="text-base sm:text-lg font-bold text-white mb-2">Oltremare Riccione</h4>
+              <p class="text-white/80 text-sm mb-3 leading-relaxed">30 min di auto. Parco natura con Laguna dei Delfini e mostre interattive.</p>
+              <div class="text-sand-300 font-semibold text-white text-sm">€75 per 3 adulti</div>
+            </div>
+
+            <!-- Museo Marineria -->
+            <div class="glass-card rounded-2xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1">
+              <div class="text-3xl sm:text-4xl mb-2 sm:mb-3">⛵</div>
+              <h4 class="text-base sm:text-lg font-bold text-white mb-2">Museo della Marineria</h4>
+              <p class="text-white/80 text-sm mb-3 leading-relaxed">15 min di auto a Cesenatico. Barche storiche e museo moderno per famiglie.</p>
+              <div class="text-sand-300 font-semibold text-white text-sm">€27 per 3 adulti</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="border-t border-white/20 pt-6 sm:pt-8">
+          <p class="text-white/60 mb-2 sm:mb-4 text-sm sm:text-base">
+            🏖️ Itinerario completo per la vostra vacanza in Riviera Romagnola
+          </p>
+          <p class="text-white/40 text-xs sm:text-sm">
+            Buona vacanza! 🌊☀️🏖️
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    function rivieraApp() {
+      return {
+        showDetails: false,
+        showCostsModal: false,
+        swiperInstance: null,
+        currentDayIndex: 0,
+
+        itinerary: [
+          {
+            id: 'giorno1',
+            date: 'Giovedì 4 Settembre',
+            title: 'Partenza',
+            subtitle: 'Il viaggio inizia',
+            emoji: '🚗',
+            summary: 'Trasferimento da Cetraro a Roma con partenza comoda e soste rilassanti. Pernottamento a Roma per spezzare il viaggio.',
+            events: [
+              {
+                time: '09:00 - 10:00',
+                title: 'Preparativi',
+                description: 'Controllo bagagli e preparazione auto per il viaggio',
+                icon: 'package',
+                duration: '30 min',
+                notes: 'Assicurarsi di avere tutto il necessario per il bambino'
+              },
+              {
+                time: '10:00 - 13:30',
+                title: 'Viaggio Cetraro → Napoli',
+                description: 'Prima tratta del viaggio con sosta intermedia per una pizza',
+                icon: 'car',
+                duration: '3h 30min',
+                location: 'Autostrada A3',
+                notes: 'Parcheggio riservato a "Parking Plebiscito"'
+              },
+              {
+                time: '14:00 - 15:00',
+                title: 'Pranzo',
+                description: 'Relax e pausa pranzo',
+                icon: 'pizza',
+                duration: '1 ora',
+                cost: '€40-60',
+                notes: 'Sosta consigliata presso pizzeria "Pizze d\'autore"'
+              },
+              {
+                time: '15:30 - 18:00',
+                title: 'Viaggio Napoli → Roma',
+                description: 'Seconda tratta del viaggio verso la capitale',
+                icon: 'navigation',
+                duration: '2h 30min',
+                location: 'Autostrada A1',
+                notes: 'Traffico moderato previsto in ingresso a Roma'
+              },
+              {
+                time: '18:00 - 19:00',
+                title: 'Arrivo in appartamento',
+                description: 'Sistemazione in appartamento e riposo dopo il viaggio',
+                icon: 'home',
+                duration: '1 ora',
+                location: 'Casa Serena',
+                notes: 'Verificare parcheggio auto sicuro'
+              },
+              {
+                time: '20:00 - 21:30',
+                title: 'Cena in zona',
+                description: 'Cena leggera in un ristorante vicino l\'appartamento',
+                icon: 'utensils',
+                duration: '1h 30min',
+                cost: '€45-60'
+              }
+            ]
+          },
+          {
+            id: 'giorno2',
+            date: 'Venerdì 5 Settembre',
+            title: 'Benvenuti in Riviera!',
+            subtitle: 'Primo tuffo nell\'atmosfera estiva',
+            emoji: '🏖️',
+            summary: 'Arrivo a Bellaria Igea Marina, sistemazione in hotel e primo approccio con il mare della Riviera Romagnola.',
+            events: [
+              {
+                time: '08:30 - 09:30',
+                title: 'Colazione e partenza da Roma',
+                description: 'Colazione a casa e preparazione per la partenza',
+                icon: 'coffee',
+                duration: '1 ora'
+              },
+              {
+                time: '09:30 - 14:00',
+                title: 'Viaggio Roma → Bellaria Igea Marina',
+                description: 'Trasferimento verso la Riviera Romagnola con soste intermedie',
+                icon: 'car',
+                duration: '4h 30min',
+                location: 'Autostrada A14',
+                notes: 'Pedaggio autostradale circa €25'
+              },
+              {
+                time: '14:00 - 15:00',
+                title: 'Pranzo',
+                description: 'Pranzo in nei dintorni dell\'hotel o al sacco',
+                icon: 'sandwich',
+                duration: '1 ora',
+                cost: '€25-35'
+              },
+              {
+                time: '15:00 - 18:00',
+                title: 'Check-in Hotel St. Moritz',
+                description: 'Sistemazione nelle camere e pisolino per Lollo',
+                icon: 'home',
+                duration: '3 ore',
+                location: 'Hotel St. Moritz, Bellaria',
+                notes: 'Verificare orari piscina e servizi hotel'
+              },
+              {
+                time: '18:00 - 19:30',
+                title: 'Primo approccio al mare',
+                description: 'Passeggiata in spiaggia e primo bagno per il bambino',
+                icon: 'waves',
+                duration: '1h 30min',
+                location: 'Spiaggia di Igea Marina',
+                notes: 'Spiaggia libera attrezzata a 500m dall\'hotel'
+              },
+              {
+                time: '19:30 - 21:00',
+                title: 'Cena in hotel',
+                description: 'Prima cena con specialità romagnole',
+                icon: 'utensils',
+                duration: '1h 30min',
+                cost: 'Inclusa nella mezza pensione'
+              },
+              {
+                time: '21:30 - 22:30',
+                title: 'Trenino Verde',
+                description: 'Tour panoramico serale di Igea Marina sul caratteristico trenino',
+                icon: 'train',
+                duration: '1 ora',
+                location: 'Partenza dal centro di Igea Marina',
+                cost: '€15 per 3 adulti',
+                notes: 'I bambini adorano questo giro! Percorso di circa 40 minuti'
+              }
+            ]
+          },
+          {
+            id: 'giorno3',
+            date: 'Sabato 6 Settembre',
+            title: 'San Marino',
+            subtitle: 'L\'antica repubblica',
+            emoji: '🏰',
+            summary: 'Gita alla scoperta del centro storico e delle torri di San Marino, con pranzo panoramico e attività pomeridiane.',
+            events: [
+              {
+                time: '08:30 - 09:30',
+                title: 'Colazione',
+                description: 'Colazione in hotel con prodotti locali',
+                icon: 'coffee',
+                duration: '1 ora'
+              },
+              {
+                time: '10:00 - 10:45',
+                title: 'Trasferimento a San Marino',
+                description: 'Viaggio verso la Repubblica di San Marino',
+                icon: 'car',
+                duration: '45 min',
+                location: 'Bellaria → San Marino',
+                notes: 'Parcheggio consigliato: P1 (Parcheggio Girolamo Gozi)'
+              },
+              {
+                time: '10:45 - 11:45',
+                title: 'Funivia e panorami',
+                description: 'Salita in funivia con vista mozzafiato sulla Riviera',
+                icon: 'mountain',
+                duration: '1 ora',
+                location: 'Funivia San Marino',
+                cost: '€15 a persona (andata e ritorno)',
+                notes: 'Biglietto famiglia disponibile (2 adulti + 1 bambino)'
+              },
+              {
+                time: '11:45 - 13:15',
+                title: 'Visita Prima Torre (Guaita)',
+                description: 'Visita alla più antica e famosa delle torri di San Marino',
+                icon: 'castle',
+                duration: '1h 30min',
+                location: 'Prima Torre, San Marino Città',
+                cost: '€24 per 3 adulti (biglietto cumulativo per 2 torri)',
+                notes: 'Percorso impegnativo ma vista spettacolare. Bambini sotto i 5 anni gratis'
+              },
+              {
+                time: '13:15 - 14:45',
+                title: 'Pranzo con vista',
+                description: 'Pranzo al ristorante La Terrazza con vista panoramica unica',
+                icon: 'utensils',
+                duration: '1h 30min',
+                location: 'Ristorante La Terrazza, San Marino',
+                cost: '€90-105 per 3 adulti',
+                notes: 'Prenotazione obbligatoria. Specialità: pasta fresca e cacciagione'
+              },
+              {
+                time: '14:45 - 15:30',
+                title: 'Rientro',
+                description: 'Rientro in hotel per pisolino e finale di Beach Volley',
+                icon: 'car',
+                duration: '45min',
+                notes: 'Famose le ceramiche artigianali e i prodotti enogastronomici locali'
+              },
+              {
+                time: '16:00 - 19:30',
+                title: 'Finale di Beach Volley',
+                description: 'Appuntamento per la finale di Beach Volley. Moglie e cognata possono approfittare per rilassarsi in spiaggia o in piscina.',
+                icon: 'volleyball',
+                duration: '3h 30min'
+              },
+              {
+                time: '19:30 - 21:00',
+                title: 'Cena in hotel',
+                description: 'Cena con menu romagnolo',
+                icon: 'utensils',
+                duration: '1h 30min'
+              },
+              {
+                time: '21:00 - 22:30',
+                title: 'Luna Park Paperopolis',
+                description: 'Serata di divertimento al luna park per tutta la famiglia',
+                icon: 'ferris-wheel',
+                duration: '1h 30min',
+                location: 'Paperopolis, Igea Marina',
+                cost: '€15-20 per le giostre del bambino',
+                notes: 'Biglietto multipasso conveniente per multiple giostre'
+              }
+            ]
+          },
+          {
+            id: 'giorno4',
+            date: 'Domenica 7 Settembre',
+            title: 'Rimini e Santarcangelo',
+            subtitle: 'Il cuore della Romagna',
+            emoji: '🎭',
+            summary: 'Scoperta del centro storico di Rimini, del pittoresco Borgo San Giuliano e del mercato antiquariato di Santarcangelo.',
+            events: [
+              {
+                time: '08:30 - 09:30',
+                title: 'Colazione',
+                description: 'Colazione in hotel',
+                icon: 'coffee',
+                duration: '1 ora'
+              },
+              {
+                time: '09:30 - 09:50',
+                title: 'Trasferimento a Rimini',
+                description: 'Breve viaggio verso il centro storico di Rimini',
+                icon: 'car',
+                duration: '20 min',
+                location: 'Bellaria → Rimini Centro',
+                notes: 'Parcheggio consigliato: Piazza Malatesta (a pagamento)'
+              },
+              {
+                time: '09:50 - 12:00',
+                title: 'Centro Storico di Rimini',
+                description: 'Passeggiata tra i monumenti storici: Tempio Malatestiano, Piazza Cavour, Fontana della Pigna.',
+                icon: 'camera',
+                duration: '2h 10min',
+                location: 'Centro Storico di Rimini',
+                notes: 'Visita al Ponte di Tiberio (2000 anni di storia) e all\'Arco d\'Augusto'
+              },
+              {
+                time: '12:00 - 13:30',
+                title: 'Borgo San Giuliano',
+                description: 'Esplorazione del caratteristico borgo di pescatori con i murales dedicati a Fellini',
+                icon: 'image',
+                duration: '1h 30min',
+                location: 'Borgo San Giuliano, Rimini',
+                notes: 'Foto ricordo con i murales dei personaggi felliniani'
+              },
+              {
+                time: '13:30 - 15:00',
+                title: 'Pranzo tipico romagnolo',
+                description: 'Pranzo all\'Osteria de Borg - cucina tradizionale romagnola',
+                icon: 'chef-hat',
+                duration: '1h 30min',
+                location: 'Osteria de Borg, Borgo San Giuliano',
+                cost: '€75-90 per 3 adulti',
+                notes: 'Prenotazione obbligatoria. Specialità: strozzapreti al ragù di pesce'
+              },
+              {
+                time: '15:30 - 16:00',
+                title: 'Trasferimento a Santarcangelo',
+                description: 'Breve spostamento verso il borgo medievale',
+                icon: 'car',
+                duration: '30 min',
+                location: 'Rimini → Santarcangelo di Romagna'
+              },
+              {
+                time: '16:00 - 18:30',
+                title: 'Santarcangelo di Romagna',
+                description: 'Visita al mercato dell\'antiquariato "La Casa del Tempo" e passeggio nel borgo',
+                icon: 'shopping-bag',
+                duration: '2h 30min',
+                location: 'Santarcangelo di Romagna',
+                cost: 'Ingresso gratuito',
+                notes: 'Mercato famoso per mobili antichi e oggetti vintage'
+              },
+              {
+                time: '18:30 - 18:50',
+                title: 'Rientro in hotel',
+                description: 'Ritorno in hotel e relax prima della cena',
+                icon: 'car',
+                duration: '20 min',
+                location: 'St. Moritz Hotel',
+              },
+              {
+                time: '19:30 - 21:00',
+                title: 'Cena in hotel',
+                description: 'Cena con specialità romagnole',
+                icon: 'utensils',
+                duration: '1h 30min'
+              },
+              {
+                time: '21:30 - 22:30',
+                title: 'Passeggiata sul lungomare',
+                description: 'Passeggiata digestiva sul lungomare di Bellaria',
+                icon: 'moon',
+                duration: '1 ora',
+                location: 'Lungomare di Bellaria Igea Marina',
+                notes: 'Gelato artigianale in una delle gelaterie del lungomare'
+              }
+            ]
+          },
+          {
+            id: 'giorno5',
+            date: 'Lunedì 8 Settembre',
+            title: 'Italia in Miniatura',
+            subtitle: 'Il mondo in piccolo',
+            emoji: '🏛️',
+            summary: 'Giornata al parco tematico "Italia in Miniatura" con riproduzioni in scala dei monumenti italiani, seguito da ultimo pomeriggio di mare.',
+            events: [
+              {
+                time: '08:30 - 09:30',
+                title: 'Colazione',
+                description: 'Colazione in hotel',
+                icon: 'coffee',
+                duration: '1 ora'
+              },
+              {
+                time: '09:30 - 10:30',
+                title: 'Preparazione bagagli',
+                description: 'Organizzazione bagagli per la partenza',
+                icon: 'luggage',
+                duration: '1 ora',
+                notes: 'Lasciare accesso a cambio per il viaggio'
+              },
+              {
+                time: '10:30 - 10:40',
+                title: 'Trasferimento a Italia in Miniatura',
+                description: 'Breve viaggio verso il parco tematico',
+                icon: 'car',
+                duration: '10 min',
+                location: 'Bellaria → Italia in Miniatura, Viserba',
+                notes: 'Parcheggio a pagamento €5 per l\'intera giornata'
+              },
+              {
+                time: '10:40 - 13:30',
+                title: 'Visita Italia in Miniatura',
+                description: 'Esplorazione del parco con le riproduzioni dei monumenti italiani e attrazioni',
+                icon: 'map',
+                duration: '2h 50min',
+                location: 'Italia in Miniatura, Viserba',
+                cost: '€65 per 3 adulti (bambino gratis sotto i 5 anni)',
+                notes: 'Da non perdere: Venezia in miniatura con gondole funzionanti e monorotaia'
+              },
+              {
+                time: '13:30 - 14:30',
+                title: 'Pranzo al parco',
+                description: 'Pranzo veloce presso uno dei punti ristoro del parco',
+                icon: 'sandwich',
+                duration: '1 ora',
+                cost: '€30-45 per 3 adulti',
+                notes: 'Consigliato il chiosco con piadine romagnole'
+              },
+              {
+                time: '14:30 - 19:00',
+                title: 'Ritorno a Roma',
+                description: 'Tappa a Roma per spezzare il viaggio di ritorno',
+                icon: 'car',
+                duration: '4h 30min',
+                location: 'SS 3 bis',
+              }
+            ]
+          },
+          {
+            id: 'giorno6',
+            date: 'Martedì 9 Settembre',
+            title: 'Ritorno a casa',
+            subtitle: 'Arrivederci Romagna!',
+            emoji: '🏠',
+            summary: 'Giornata dedicata al viaggio di ritorno verso Cetraro, con soste programmate e ricordi di una vacanza indimenticabile.',
+            events: [
+              {
+                time: '08:30 - 09:30',
+                title: 'Colazione',
+                description: 'Ultima colazione a Roma',
+                icon: 'coffee',
+                duration: '1 ora',
+                notes: 'Verificare di non aver dimenticato nulla in camera'
+              },
+              {
+                time: '10:00 - 12:30',
+                title: 'Roma → Napoli',
+                description: 'Prima tratta del viaggio di ritorno',
+                icon: 'car',
+                duration: '2h 30min',
+                location: 'Autostrada A1',
+                notes: 'Traffico moderato previsto nell\'area di Firenze'
+              },
+              {
+                time: '13:00 - 14:30',
+                title: 'Pranzo a Napoli',
+                description: 'Pranzo veloce Napoli',
+                icon: 'utensils',
+                duration: '1h 30min',
+                cost: '€30-40'
+              },
+              {
+                time: '14:45 - 18:15',
+                title: 'Napoli → Cetraro',
+                description: 'Seconda tratta del viaggio di ritorno',
+                icon: 'car',
+                duration: '3h 30min',
+                location: 'Autostrada A3',
+                notes: 'Possibile traffico nell\'area di Salerno'
+              },
+              {
+                time: '18:15 - 19:15',
+                title: 'Arrivo a Cetraro',
+                description: 'Sistemazione bagagli e relax finale',
+                icon: 'home',
+                duration: '1 ora',
+                location: 'Cetraro',
+                notes: 'Fine di una bellissima vacanza!'
+              }
+            ]
+          }
+        ],
+
+        init() {
+          // Inizializza Lucide icons con retry per mobile
+          this.initIcons();
+        },
+
+        initIcons() {
+          const tryInit = () => {
+            if (window.lucide) {
+              lucide.createIcons();
+            } else {
+              setTimeout(tryInit, 100);
+            }
+          };
+          tryInit();
+        },
+
+        scrollToItinerary() {
+          const element = document.getElementById('itinerary');
+          if (element) {
+            element.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        },
+
+        showCosts() {
+          this.showCostsModal = true;
+        },
+
+        showDay(index) {
+          this.showDetails = true;
+          this.currentDayIndex = index;
+
+          // Aggiungi un piccolo delay per permettere al DOM di aggiornarsi
+          this.$nextTick(() => {
+            setTimeout(() => {
+              this.initSwiper(index);
+            }, 50);
+          });
+        },
+
+        closeDetails() {
+          this.showDetails = false;
+          if (this.swiperInstance) {
+            this.swiperInstance.destroy(true, true);
+            this.swiperInstance = null;
+          }
+        },
+
+        nextDay() {
+          if (this.swiperInstance) {
+            this.swiperInstance.slideNext();
+          }
+        },
+
+        prevDay() {
+          if (this.swiperInstance) {
+            this.swiperInstance.slidePrev();
+          }
+        },
+
+        handleKeydown(event) {
+          if (event.key === 'Escape') {
+            this.closeDetails();
+          } else if (event.key === 'ArrowLeft') {
+            this.prevDay();
+          } else if (event.key === 'ArrowRight') {
+            this.nextDay();
+          }
+        },
+
+        initSwiper(initialSlide = 0) {
+          if (this.swiperInstance) {
+            this.swiperInstance.destroy(true, true);
+          }
+
+          this.$nextTick(() => {
+            // Attendi che l'elemento sia disponibile
+            const swiperContainer = this.$refs.swiperContainer;
+            if (!swiperContainer) return;
+
+            this.swiperInstance = new Swiper(swiperContainer, {
+              initialSlide: initialSlide,
+              slidesPerView: 1,
+              spaceBetween: 20,
+              speed: 400,
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true,
+              },
+              // Migliore gestione touch su mobile
+              touchRatio: 1,
+              touchAngle: 45,
+              simulateTouch: true,
+              allowTouchMove: true,
+              touchStartPreventDefault: false,
+              keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+              },
+              a11y: {
+                prevSlideMessage: 'Giorno precedente',
+                nextSlideMessage: 'Giorno successivo',
+              }
+            });
+
+            // Aggiorna l'indice corrente quando cambia la slide
+            this.swiperInstance.on('slideChange', () => {
+              this.currentDayIndex = this.swiperInstance.activeIndex;
+            });
+
+            // Re-inizializza le icone dopo il caricamento dello slider
+            setTimeout(() => {
+              this.initIcons();
+            }, 200);
+          });
+        }
+      };
+    }
+
+    // Inizializza le icone quando il DOM è pronto
+    document.addEventListener('DOMContentLoaded', function() {
+      // Attendere il caricamento di Alpine
+      setTimeout(() => {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      }, 200);
+    });
+  </script>
+</body>
+</html>
